@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rápido & Rico | Menú Digital</title>
+  <meta name="description" content="Demo de menú digital con carrito y pedido por WhatsApp, editable desde CSV o Google Sheets." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav container">
+      <a class="brand" href="#">
+        <span class="brand-icon">🍽️</span>
+        <span>Rápido & Rico</span>
+      </a>
+      <a class="nav-cta" href="#menu">Ver menú</a>
+    </nav>
+
+    <section class="hero-content container">
+      <div class="hero-copy">
+        <span class="eyebrow">Menú digital + pedidos por WhatsApp</span>
+        <h1>Pedí rico, rápido y sin instalar apps.</h1>
+        <p>Explorá pizzas, hamburguesas, pastas, bebidas, postres y combos. Armá tu pedido y envialo directo por WhatsApp.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#menu">Empezar pedido</a>
+          <button class="btn secondary" type="button" id="openCartTop">Ver carrito</button>
+        </div>
+      </div>
+      <aside class="status-card" aria-label="Estado del restaurante">
+        <div class="status-row">
+          <span id="storeStatus" class="status-pill">Verificando...</span>
+          <span class="muted">Hoy 19:00 a 00:30</span>
+        </div>
+        <h2>Delivery desde $1.200</h2>
+        <p>Calculamos el envío según tu zona. Retiro por local sin cargo.</p>
+      </aside>
+    </section>
+  </header>
+
+  <main>
+    <section class="controls container" id="menu">
+      <div>
+        <span class="section-kicker">Nuestro menú</span>
+        <h2>Elegí tus favoritos</h2>
+      </div>
+      <div class="search-wrap">
+        <input id="searchInput" type="search" placeholder="Buscar pizza, combo, bebida..." autocomplete="off" />
+      </div>
+    </section>
+
+    <section class="container category-bar" id="categoryBar" aria-label="Categorías"></section>
+
+    <section class="container promo-strip" id="promoStrip"></section>
+
+    <section class="container products-grid" id="productsGrid" aria-live="polite"></section>
+  </main>
+
+  <button class="floating-cart" id="floatingCart" type="button" aria-label="Abrir carrito">
+    🛒 <span id="cartCount">0</span>
+  </button>
+
+  <aside class="cart-panel" id="cartPanel" aria-hidden="true">
+    <div class="cart-header">
+      <div>
+        <span class="section-kicker">Tu pedido</span>
+        <h2>Carrito</h2>
+      </div>
+      <button class="icon-btn" id="closeCart" type="button" aria-label="Cerrar carrito">×</button>
+    </div>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <div class="delivery-box">
+      <label for="deliveryZone">Zona de entrega</label>
+      <select id="deliveryZone">
+        <option value="retiro" data-price="0">Retiro por el local - $0</option>
+        <option value="centro" data-price="1200">Delivey - $2.800</option>
+        </select>
+
+      <label for="customerAddress">Dirección / referencia</label>
+      <input id="customerAddress" type="text" placeholder="Ej: Av. Mitre 123, timbre B" />
+
+      <label for="customerNotes">Notas del pedido</label>
+      <textarea id="customerNotes" rows="3" placeholder="Ej: sin cebolla, pago con transferencia..."></textarea>
+    </div>
+
+    <div class="cart-summary">
+      <div><span>Productos</span><strong id="subtotal">$0</strong></div>
+      <div><span>Delivery</span><strong id="deliveryCost">$0</strong></div>
+      <div class="total"><span>Total</span><strong id="total">$0</strong></div>
+    </div>
+
+    <button class="btn primary full" id="sendWhatsApp" type="button">Enviar pedido por WhatsApp</button>
+  </aside>
+
+  <div class="overlay" id="overlay"></div>
+
+  <footer class="footer container">
+    <p>Demo desarrollada para MS Web · Menú editable desde CSV / Google Sheets · GitHub Pages</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

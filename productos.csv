@@ -1,0 +1,19 @@
+id,nombre,categoria,descripcion,precio,imagen,destacado,promo,combo,disponible
+1,Pizza Muzzarella,Pizzas,"Salsa de tomate, muzzarella, orégano y aceitunas",8500,img/pizza.jpg,si,si,no,si
+2,Pizza Napolitana,Pizzas,"Muzzarella, tomate fresco, ajo y aceitunas",9800,img/pizza.jpg,no,no,no,si
+3,Pizza Fugazzeta,Pizzas,"Cebolla, muzzarella y toque de oliva",10500,img/pizza.jpg,no,no,no,si
+4,Hamburguesa Clásica,Hamburguesas,"Medallón casero, cheddar, lechuga, tomate y salsa especial",7200,img/hamburguesa.jpg,si,no,no,si
+5,Hamburguesa Doble,Hamburguesas,"Doble carne, doble cheddar, panceta y papas",9900,img/hamburguesa.jpg,si,si,no,si
+6,Hamburguesa Veggie,Hamburguesas,"Medallón vegetal, rúcula, tomate y alioli",7800,img/hamburguesa.jpg,no,no,no,si
+7,Ñoquis Caseros,Pastas,"Ñoquis de papa con salsa fileto o crema",6900,img/pastas.jpg,no,no,no,si
+8,Ravioles de Verdura,Pastas,"Ravioles artesanales con salsa a elección",8200,img/pastas.jpg,si,no,no,si
+9,Tallarines con Bolognesa,Pastas,"Pasta fresca con salsa bolognesa tradicional",7900,img/pastas.jpg,no,no,no,si
+10,Coca-Cola 500ml,Bebidas,"Gaseosa fría individual",2200,img/bebidas.jpg,no,no,no,si
+11,Agua Mineral 500ml,Bebidas,"Agua sin gas",1600,img/bebidas.jpg,no,no,no,si
+12,Limonada Casera,Bebidas,"Limonada natural con menta",2500,img/bebidas.jpg,si,no,no,si
+13,Flan Casero,Postres,"Flan con dulce de leche o crema",3200,img/postres.jpg,no,no,no,si
+14,Tiramisú,Postres,"Postre italiano con café y cacao",3900,img/postres.jpg,si,no,no,si
+15,Brownie con Helado,Postres,"Brownie tibio con bocha de helado",4200,img/postres.jpg,no,si,no,si
+16,Combo Pizza + Bebida,Combos,"Pizza muzzarella grande + 2 bebidas",11900,img/combos.jpg,si,si,si,si
+17,Combo Burger Doble,Combos,"Hamburguesa doble + papas + bebida",12500,img/combos.jpg,si,si,si,si
+18,Combo Familiar,Combos,"2 pizzas muzzarella + 4 bebidas + postre",28900,img/combos.jpg,si,no,si,si
