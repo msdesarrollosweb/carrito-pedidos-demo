@@ -378,3 +378,65 @@ button,input,select,textarea{font:inherit}
   }
   .horizontal-products .product-image{height:185px}
 }
+
+
+/* Correcciones responsive y experiencia mobile */
+.hero-copy,
+.hero-copy *{
+  min-width:0;
+}
+.hero h1{
+  max-width:100%;
+  overflow-wrap:break-word;
+  word-break:normal;
+  hyphens:auto;
+}
+@media(max-width:620px){
+  .hero h1{
+    font-size:clamp(2rem,13vw,3.2rem);
+    line-height:1.02;
+    letter-spacing:-.045em;
+  }
+  .hero p{
+    font-size:1rem;
+    line-height:1.55;
+  }
+  .brand{
+    max-width:100%;
+    min-width:0;
+  }
+  .brand span:last-child{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+}
+
+/* El carrusel debe permitir swipe horizontal, pero sin bloquear el scroll vertical de la página */
+.horizontal-products{
+  touch-action:auto;
+  overscroll-behavior-x:contain;
+  overscroll-behavior-y:auto;
+  max-width:100%;
+}
+.horizontal-products .product-card,
+.product-card{
+  min-width:0;
+}
+
+@media(max-width:720px){
+  .horizontal-products{
+    overflow-x:auto;
+    overflow-y:visible;
+    scroll-snap-type:x proximity;
+    touch-action:auto;
+    padding-bottom:14px;
+  }
+  .horizontal-products .product-card{
+    flex:0 0 82vw;
+    max-width:340px;
+    min-width:250px;
+  }
+}
+
+/* Al agregar productos, solo se actualiza el botón flotante y aparece el aviso; el carrito se abre manualmente. */

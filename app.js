@@ -116,7 +116,7 @@ function renderCategories() {
     <div class="category-select-card">
       <span class="category-select-icon">🍽️</span>
       <div class="category-select-copy">
-        <span>Explorar productos</span>
+        <span>Explorá por rubro</span>
         <strong>Elegí una categoría</strong>
       </div>
       <select class="category-select" id="categorySelect" aria-label="Seleccionar rubro del menú">
@@ -202,7 +202,6 @@ function addToCart(id) {
   updateCart();
   animateCartButton();
   showCartToast(`${product.nombre} agregado`);
-  openCart();
 }
 
 function changeQuantity(id, delta) {
