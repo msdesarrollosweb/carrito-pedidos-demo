@@ -22,21 +22,16 @@
 
     <section class="hero-content container">
       <div class="hero-copy">
-        <span class="eyebrow">Menú digital + pedidos por WhatsApp</span>
-        <h1>Pedí rico, rápido y sin instalar apps.</h1>
-        <p>Explorá pizzas, hamburguesas, pastas, bebidas, postres y combos. Armá tu pedido y envialo directo por WhatsApp.</p>
+        <span class="eyebrow">Menú digital</span>
+        <h1>Pedí algo rico y rápido </h1>
+        <p>Explorá pizzas, hamburguesas, pastas, bebidas, postres y combos. Armá tu pedido y pasá a buscarlo o te lo enviamos a domicilio.</p>
         <div class="hero-actions">
           <a class="btn primary" href="#menu">Empezar pedido</a>
           <button class="btn secondary" type="button" id="openCartTop">Ver carrito</button>
         </div>
       </div>
-      <aside class="status-card" aria-label="Estado del restaurante">
-        <div class="status-row">
-          <span id="storeStatus" class="status-pill">Verificando...</span>
-          <span class="muted">Hoy 19:00 a 00:30</span>
-        </div>
-        <h2>Delivery desde $1.200</h2>
-        <p>Calculamos el envío según tu zona. Retiro por local sin cargo.</p>
+      <aside class="status-card status-card-simple" aria-label="Estado del restaurante">
+        <span id="storeStatus" class="status-pill">Verificando...</span>
       </aside>
     </section>
   </header>
@@ -60,8 +55,14 @@
   </main>
 
   <button class="floating-cart" id="floatingCart" type="button" aria-label="Abrir carrito">
-    🛒 <span id="cartCount">0</span>
+    <span class="floating-cart-icon">🛒</span>
+    <span class="floating-cart-content">
+      <strong>Ver pedido</strong>
+      <small><span id="cartCount">0</span> productos · <span id="cartButtonSubtotal">$0</span></small>
+    </span>
   </button>
+
+  <div class="cart-toast" id="cartToast" role="status" aria-live="polite">Producto agregado al carrito</div>
 
   <aside class="cart-panel" id="cartPanel" aria-hidden="true">
     <div class="cart-header">
@@ -78,8 +79,10 @@
       <label for="deliveryZone">Zona de entrega</label>
       <select id="deliveryZone">
         <option value="retiro" data-price="0">Retiro por el local - $0</option>
-        <option value="centro" data-price="1200">Delivey - $2.800</option>
-        </select>
+        <option value="centro" data-price="1200">Centro - $1.200</option>
+        <option value="cercana" data-price="1800">Zona cercana - $1.800</option>
+        <option value="extendida" data-price="2600">Zona extendida - $2.600</option>
+      </select>
 
       <label for="customerAddress">Dirección / referencia</label>
       <input id="customerAddress" type="text" placeholder="Ej: Av. Mitre 123, timbre B" />
@@ -94,13 +97,28 @@
       <div class="total"><span>Total</span><strong id="total">$0</strong></div>
     </div>
 
-    <button class="btn primary full" id="sendWhatsApp" type="button">Enviar pedido por WhatsApp</button>
+    <button class="btn primary full whatsapp-btn" id="sendWhatsApp" type="button">
+      <span>Enviar pedido por WhatsApp</span>
+      <strong id="whatsappTotal">$0</strong>
+    </button>
   </aside>
 
   <div class="overlay" id="overlay"></div>
 
   <footer class="footer container">
-    <p>Demo desarrollada para MS Web · Menú editable desde CSV / Google Sheets · GitHub Pages</p>
+    <section class="footer-info" aria-label="Horarios de atención y ubicación">
+      <article>
+        <span class="section-kicker">Horarios de atención</span>
+        <h3>Lunes a sábado de 9:00 a 21:00 hs</h3>
+        <p>Domingos cerrado. Los pedidos por WhatsApp se toman dentro del horario de atención.</p>
+      </article>
+      <article>
+        <span class="section-kicker">Ubicación</span>
+        <h3>Av. San Martín 2450, Centro</h3>
+        <p>Ciudad Demo, Argentina. Retiro por local y delivery según zona.</p>
+      </article>
+    </section>
+    <p>Demo desarrollada por MS Web · Menú editable</p>
   </footer>
 
   <script src="app.js"></script>
