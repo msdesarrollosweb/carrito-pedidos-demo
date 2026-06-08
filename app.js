@@ -1,8 +1,8 @@
 const CONFIG = {
   whatsappNumber: "5491127549094", // Cambiar por el número del negocio. Formato: país + área + número, sin + ni espacios.
   csvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTvNjgIQDoFmKzLO7R8t4d0iB_rGX8MS1zj0-fHR_UPUI0HRTmZAanE39l_ej48VMpG2Zix_SJYzvwK/pub?gid=0&single=true&output=csv", // Para Google Sheets: pegar URL publicada como CSV.
-  openHour: 9,
-  closeHour: 21,
+  openHour: 19,
+  closeHour: 0.5,
   openDays: [1, 2, 3, 4, 5, 6], // Lunes a sábado. Domingo = 0.
   restaurantName: "Rápido & Rico"
 };
@@ -113,11 +113,17 @@ async function loadProducts() {
 function renderCategories() {
   const categories = [...new Set(state.products.map(product => product.categoria))];
   categoryBar.innerHTML = `
-    <label class="category-select-label" for="categorySelect">Filtrar por rubro</label>
-    <select class="category-select" id="categorySelect" aria-label="Seleccionar rubro del menú">
-      <option value="Todos">Todos los productos</option>
-      ${categories.map(category => `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`).join("")}
-    </select>
+    <div class="category-select-card">
+      <span class="category-select-icon">🍽️</span>
+      <div class="category-select-copy">
+        <span>Explorar productos</span>
+        <strong>Elegí una categoría</strong>
+      </div>
+      <select class="category-select" id="categorySelect" aria-label="Seleccionar rubro del menú">
+        <option value="Todos">Todos los productos</option>
+        ${categories.map(category => `<option value="${escapeHTML(category)}">${escapeHTML(category)}</option>`).join("")}
+      </select>
+    </div>
   `;
 }
 
@@ -281,15 +287,55 @@ function closeCart() {
   document.body.classList.remove("body-lock");
 }
 
-function updateStoreStatus() {
-  const now = new Date();
-  const currentDay = now.getDay();
-  const currentHour = now.getHours() + now.getMinutes() / 60;
-  const isBusinessDay = CONFIG.openDays.includes(currentDay);
-  const isOpen = isBusinessDay && currentHour >= CONFIG.openHour && currentHour < CONFIG.closeHour;
-  const status = $("#storeStatus");
+function formatHour(decimalHour) {
+  const hour = Math.floor(decimalHour) % 24;
+  const minutes = Math.round((decimalHour - Math.floor(decimalHour)) * 60);
+  return `${String(hour).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+}
 
-  status.textContent = isOpen ? "Ya estamos atendiendo !!!" : "Cerrado ahora";
+function isStoreOpenNow(date = new Date()) {
+  const currentDay = date.getDay();
+  const previousDay = currentDay === 0 ? 6 : currentDay - 1;
+  const currentHour = date.getHours() + date.getMinutes() / 60;
+  const crossesMidnight = CONFIG.closeHour <= CONFIG.openHour;
+
+  if (!crossesMidnight) {
+    return CONFIG.openDays.includes(currentDay) && currentHour >= CONFIG.openHour && currentHour < CONFIG.closeHour;
+  }
+
+  const openedToday = CONFIG.openDays.includes(currentDay) && currentHour >= CONFIG.openHour;
+  const stillOpenFromYesterday = CONFIG.openDays.includes(previousDay) && currentHour < CONFIG.closeHour;
+  return openedToday || stillOpenFromYesterday;
+}
+
+function getNextOpeningText(date = new Date()) {
+  const currentDay = date.getDay();
+  const currentHour = date.getHours() + date.getMinutes() / 60;
+  const openText = `${formatHour(CONFIG.openHour)} a ${formatHour(CONFIG.closeHour)}`;
+
+  if (CONFIG.openDays.includes(currentDay) && currentHour < CONFIG.openHour) {
+    return `Abrimos hoy de ${openText}`;
+  }
+
+  const dayNames = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+  for (let i = 1; i <= 7; i++) {
+    const nextDay = (currentDay + i) % 7;
+    if (CONFIG.openDays.includes(nextDay)) {
+      return `Abrimos el ${dayNames[nextDay]} de ${openText}`;
+    }
+  }
+
+  return `Abrimos de ${openText}`;
+}
+
+function updateStoreStatus() {
+  const isOpen = isStoreOpenNow();
+  const status = $("#storeStatus");
+  const hours = `${formatHour(CONFIG.openHour)} a ${formatHour(CONFIG.closeHour)}`;
+
+  status.textContent = isOpen
+    ? `Ya estamos atendiendo !!! Hoy ${hours}`
+    : `Estamos cerrados · ${getNextOpeningText()}`;
   status.classList.toggle("open", isOpen);
   status.classList.toggle("closed", !isOpen);
 }
@@ -332,6 +378,8 @@ categoryBar.addEventListener("change", (event) => {
 
   const section = document.getElementById(getCategoryId(select.value));
   section?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const rail = section?.querySelector(".horizontal-products");
+  if (rail) rail.scrollLeft = 0;
 });
 
 $("#searchInput").addEventListener("input", (event) => {
